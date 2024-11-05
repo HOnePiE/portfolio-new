@@ -23,7 +23,7 @@ const AboutMe = () => {
       <div
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
-        className={`bg-white/20 backdrop-blur-lg rounded-xl shadow-xl flex flex-col items-center p-8 transform transition-all duration-1000 ease-in-out ${
+        className={`bg-white/20 backdrop-blur-lg rounded-xl shadow-xl flex flex-col items-center p-8 transform transition-all duration-700 ease-in-out ${
           isOpen ? "w-[32rem] h-[28rem]" : "w-60 h-44"
         }`}
       >
