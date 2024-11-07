@@ -83,7 +83,7 @@ const ProjectsCarousel = () => {
               transition:
                 hoveredProjectId === project.id
                   ? "transform 1s ease-in-out, width 0.7s ease 1s, height 0.7s ease 1s"
-                  : "transform 1s ease-in-out, width 0.7s ease, height 0.7s ease",
+                  : "transform 0.5s ease-in-out, width 0.7s ease, height 0.7s ease",
             }}
           >
             <div className="flex flex-row items-center space-x-2 p-4 transition-all ease-in-out duration-500">
@@ -168,7 +168,10 @@ const ProjectsCarousel = () => {
           }
           `}
             >
-              <a href="/#" className="bg-red-500 text-white px-4 py-1 rounded-full mt-2 text-center hover:bg-red-400 duration-200 ease-out">
+              <a
+                href="/#"
+                className="bg-red-500 text-white px-4 py-1 rounded-full mt-2 text-center hover:bg-red-400 duration-200 ease-out"
+              >
                 View
               </a>
               <p className="font-semibold">Technologies</p>
@@ -182,16 +185,16 @@ const ProjectsCarousel = () => {
         ))}
       </div>
       {/* Next and Previous Buttons */}
-      <div className="absolute flex space-x-4">
+      <div className=" flex space-x-4">
         <button
           onClick={handlePrevious}
-          className="bg-white/30 backdrop-blur-sm p-3 rounded-full absolute right-40 shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
+          className="bg-white/30 backdrop-blur-sm p-3 rounded-full shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
         >
           <FontAwesomeIcon icon={faArrowLeft} size="lg" />
         </button>
         <button
           onClick={handleNext}
-          className="bg-white/30 backdrop-blur-sm p-3 rounded-full absolute left-40 shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
+          className="bg-white/30 backdrop-blur-sm p-3 rounded-full shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
         >
           <FontAwesomeIcon icon={faArrowRight} size="lg" />
         </button>

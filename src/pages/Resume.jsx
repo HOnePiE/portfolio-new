@@ -26,7 +26,7 @@ const Resume = () => {
         </div>
 
         {/* Experience Section */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Experience</h2>
           <div className="text-gray-200">
             <div className="mb-4">
@@ -40,7 +40,7 @@ const Resume = () => {
               <p>Assisted in building responsive websites, learning about best practices in coding and UI/UX design, and improving existing features for client projects.</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Education Section */}
         <div className="mb-8">
@@ -48,7 +48,7 @@ const Resume = () => {
           <div className="text-gray-200">
             <div className="mb-4">
               <h3 className="font-bold">Bachelor's in Computer Science</h3>
-              <p className="text-sm text-gray-400">University of ABC - Graduated 2020</p>
+              <p className="text-sm text-gray-400">College of BTEC FPT - Graduated 2024</p>
               <p>Focused on software development, web technologies, and data structures.</p>
             </div>
           </div>

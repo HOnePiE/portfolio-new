@@ -12,9 +12,8 @@ function App() {
   return (
     <Router>
       <div
-        className="background"
+        className="background max-w-full"
         style={{
-          // height: "100vh",
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
