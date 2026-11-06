@@ -10,34 +10,63 @@ import {
   DiGit,
   DiMsqlServer,
 } from "react-icons/di";
-// JS, nodejs, reactjs, php, laravel, C#, .net, sql server, git, docker, react remix, tailwind
+import {
+  SiCss3,
+  SiDocker,
+  SiHtml5,
+  SiLaravel,
+  SiMysql,
+  SiPhp,
+  SiRemix,
+  SiTailwindcss,
+  SiWordpress,
+} from "react-icons/si";
+import useViewportWidth from "../hooks/useViewportWidth.js";
+
 const skills = [
-  { name: "JavaScript", icon: <DiJavascript1 size={60} /> },
-  { name: "React", icon: <DiReact size={60} /> },
-  { name: "Node.js", icon: <DiNodejs size={60} /> },
-  { name: "MongoDB", icon: <DiMongodb size={60} /> },
-  { name: "Git", icon: <DiGit size={60} /> },
-  { name: "C#", icon: <TbBrandCSharp size={60} /> },
-  { name: ".NET", icon: <AiOutlineDotNet size={60} /> },
-  { name: "sqlServer", icon: <DiMsqlServer size={60} /> },
+  { name: "HTML", Icon: SiHtml5 },
+  { name: "CSS", Icon: SiCss3 },
+  { name: "JavaScript", Icon: DiJavascript1 },
+  { name: "React", Icon: DiReact },
+  { name: "React Remix", Icon: SiRemix },
+  { name: "Tailwind CSS", Icon: SiTailwindcss },
+  { name: "Node.js", Icon: DiNodejs },
+  { name: "PHP", Icon: SiPhp },
+  { name: "Laravel", Icon: SiLaravel },
+  { name: "WordPress", Icon: SiWordpress },
+  { name: "C#", Icon: TbBrandCSharp },
+  { name: ".NET", Icon: AiOutlineDotNet },
+  { name: "SQL Server", Icon: DiMsqlServer },
+  { name: "MySQL", Icon: SiMysql },
+  { name: "MongoDB", Icon: DiMongodb },
+  { name: "Git", Icon: DiGit },
+  { name: "Docker", Icon: SiDocker },
 ];
 
 const Skills = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const isSmallScreen = useViewportWidth() < 640;
+  const bubbleSize = isSmallScreen ? 96 : 150;
+  const hoveredSize = isSmallScreen ? 96 : 190;
+  const iconSize = isSmallScreen ? 32 : 56;
+
   return (
-    <div id="Skills" className="min-h-screen flex items-center justify-center">
-      <div className="relative w-full h-full flex flex-wrap justify-center items-center p-8">
-        {skills.map((skill, index) => (
-          <motion.div
+    <section
+      id="Skills"
+      className="min-h-screen flex flex-col items-center justify-center text-white py-16 px-2 sm:px-8"
+    >
+      <h1 className="text-3xl font-bold mb-8 text-shadow-md">My Skills</h1>
+      <ul className="w-full max-w-6xl flex flex-wrap justify-center items-center">
+        {skills.map(({ name, Icon }, index) => (
+          <motion.li
             onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(false)}
-            key={index}
-            className={`blur-bubble m-4 bg-white/20 text-white backdrop-blur-lg rounded-full shadow-lg flex flex-col items-center justify-center 
-            text-lg font-bold hover:scale-110 transition-transform duration-300`}
-            layout
+            onMouseLeave={() => setHoveredIndex(null)}
+            key={name}
+            className="blur-bubble m-1.5 sm:m-3 bg-white/20 backdrop-blur-lg rounded-full shadow-lg flex flex-col items-center justify-center text-center font-bold text-xs sm:text-sm leading-tight"
+            initial={false}
             animate={{
-              width: hoveredIndex === index ? "200px" : "150px",
-              height: hoveredIndex === index ? "200px" : "150px",
+              width: hoveredIndex === index ? hoveredSize : bubbleSize,
+              height: hoveredIndex === index ? hoveredSize : bubbleSize,
             }}
             transition={{
               type: "spring",
@@ -45,12 +74,12 @@ const Skills = () => {
               damping: 16,
             }}
           >
-            {skill.icon}
-            {/* <span className="mt-2">{skill.name}</span> */}
-          </motion.div>
+            <Icon size={iconSize} aria-hidden="true" />
+            <span className="mt-1 px-2 text-shadow-sm">{name}</span>
+          </motion.li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };
 

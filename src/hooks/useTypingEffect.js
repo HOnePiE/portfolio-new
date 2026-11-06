@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 
-// Custom Hook for Typing Effect
-const useTypingEffect = (text, speed = 100) => {
+// Custom Hook for Typing Effect. Restarts whenever `enabled` turns on.
+const useTypingEffect = (text, speed = 100, enabled = true) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
-    let index = 0;
+    setDisplayedText('');
+    if (!enabled) return undefined;
+
+    let length = 0;
     const interval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText((prev) => prev + text[index]);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
+      length += 1;
+      setDisplayedText(text.slice(0, length));
+      if (length >= text.length) clearInterval(interval);
     }, speed);
 
     return () => clearInterval(interval); // Cleanup the interval on unmount
-  }, [text, speed]);
+  }, [text, speed, enabled]);
 
   return displayedText;
 };

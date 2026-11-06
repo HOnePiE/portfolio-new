@@ -11,10 +11,11 @@ const WheelMenu = () => {
   // };
   return (
     <div className="fixed w-20 h-20 group z-50">
-      <div className="absolute inset-0 flex justify-center items-center transition-transform duration-500 scale-0 group-hover:scale-100 delay-1000 group-hover:delay-0">
+      <div className="absolute inset-0 flex justify-center items-center transition-transform duration-500 scale-0 group-hover:scale-100 group-focus-within:scale-100 delay-1000 group-hover:delay-0 group-focus-within:delay-0">
         <a
           // to="/skills"
           href="#Skills"
+          aria-label="Skills"
           className="menu-item text-xs font-semibold text-white text-shadow-soft absolute w-14 h-14 bg-white/30 backdrop-blur-sm flex items-center justify-center rounded-full transform translate-x-[80px] translate-y-[-27px] shadow-md duration-200 hover:bg-white/50 hover:scale-110"
           onMouseEnter={() => setHoveredItem("skills")}
           onMouseLeave={() => setHoveredItem(null)}
@@ -28,6 +29,7 @@ const WheelMenu = () => {
         <a
           // to="/projects"
           href="#Projects"
+          aria-label="Projects"
           className="menu-item text-xs font-semibold text-white text-shadow-soft absolute w-14 h-14 bg-white/30 backdrop-blur-sm flex items-center justify-center rounded-full transform  translate-x-[75px] translate-y-[40px] shadow-md duration-200 hover:bg-white/50 hover:scale-110"
           onMouseEnter={() => setHoveredItem("projects")}
           onMouseLeave={() => setHoveredItem(null)}
@@ -42,6 +44,7 @@ const WheelMenu = () => {
         <a
           // to="/Resume"
           href="#Resume"
+          aria-label="Resume"
           className="menu-item text-xs font-semibold text-white text-shadow-soft absolute w-14 h-14 bg-white/30 backdrop-blur-sm flex items-center justify-center rounded-full transform translate-x-[20px] translate-y-[80px] shadow-md duration-200 hover:bg-white/50 hover:scale-110"
           onMouseEnter={() => setHoveredItem("Resume")}
           onMouseLeave={() => setHoveredItem(null)}
@@ -53,7 +56,7 @@ const WheelMenu = () => {
           )}
         </a>
       </div>
-      <a href="#About-me">
+      <a href="#About-me" aria-label="About me">
         <div
           className="absolute w-20 h-20 p-2 bg-white/40 overflow-hidden backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center cursor-pointer 
         hover:bg-white/60 transition-all duration-300 group-hover:scale-125 group-hover:delay-0 delay-1000"
@@ -61,7 +64,7 @@ const WheelMenu = () => {
         >
           <img
             src={avatar}
-            alt="Menu"
+            alt=""
             className="rounded-full w-16 h-16 object-cover"
           />
         </div>
