@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import avatar from "../assets/img/z5942823963674_60840914407651fe4a3766dc5397dd6c.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faRectangleList } from "@fortawesome/free-solid-svg-icons";
 import { faJs } from "@fortawesome/free-brands-svg-icons";
 
 const WheelMenu = () => {
-  const navigate = useNavigate();
   const [hoveredItem, setHoveredItem] = useState(null);
   // const handleAvatarClick = () => {
   //   navigate("/");

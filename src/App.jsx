@@ -1,4 +1,5 @@
 import React from "react";
+import {SpeedInsights} from '@vercel/speed-insights/react';
 import { BrowserRouter as Router } from "react-router-dom";
 // import AppRouter from "./AppRouter";
 import Header from "./components/Header.jsx";
@@ -24,6 +25,7 @@ function App() {
         <Skills/>
         <Project/>
         <Resume/>
+        <SpeedInsights/>
       </div>
     </Router>
   );

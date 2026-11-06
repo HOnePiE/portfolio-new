@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { delay, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReact,
@@ -32,14 +33,11 @@ const projects = [
     description: "A platform to connect with friends.",
     tech: [faReact, faNodeJs],
   },
-  // Add more projects as needed
 ];
 
 const ProjectsCarousel = () => {
   const [projectList, setProjectList] = useState(projects);
   const [hoveredProjectId, setHoveredProjectId] = useState(false);
-
-  console.log(hoveredProjectId);
 
   const handleNext = () => {
     setProjectList((prevProjects) => [
@@ -58,19 +56,18 @@ const ProjectsCarousel = () => {
   return (
     <div
       id="Projects"
-      className="min-h-screen flex flex-col items-center justify-center  text-white p-6"
+      className="min-h-screen flex flex-col items-center justify-center text-white p-6"
     >
       <h1 className="text-3xl font-bold mb-8">My Projects</h1>
       <div className="relative w-96 h-80 flex justify-center items-center mb-6">
         {projectList.map((project, index) => (
-          <divl
+          <motion.div
+            key={project.id}
             onMouseEnter={() => setHoveredProjectId(project.id)}
             onMouseLeave={() => setHoveredProjectId(false)}
-            className={`absolute ml-5 flex flex-col bg-white/20 backdrop-blur-lg rounded-lg overflow-hidden shadow-md cursor-pointer transition-transform ease-in-out`}
-            style={{
-              transform: `translate(${index * -15}px, ${index * 15}px) ${
-                hoveredProjectId === project.id ? "scale(1)" : "scale(0.9)"
-              }`,
+            initial={false}
+            animate={{
+              scale: hoveredProjectId === project.id ? 1 : 0.9,
               width:
                 hoveredProjectId === project.id && index === 0
                   ? "20rem"
@@ -79,58 +76,124 @@ const ProjectsCarousel = () => {
                 hoveredProjectId === project.id && index === 0
                   ? "24rem"
                   : "18rem",
+              translateX: index * -15,
+              translateY: index * 15,
               zIndex: index === 0 ? 50 : 50 - index,
-              transition:
-                hoveredProjectId === project.id
-                  ? "transform 1s ease-in-out, width 0.7s ease 1s, height 0.7s ease 1s"
-                  : "transform 0.5s ease-in-out, width 0.7s ease, height 0.7s ease",
             }}
+            transition={{
+              zIndex: { type: "spring", stiffness: 200, damping: 50 },
+              translateX: { type: "spring", stiffness: 200, damping: 15 },
+              translateY: { type: "spring", stiffness: 200, damping: 15 },
+              scale: {
+                // duration: hoveredProjectId === project.id ? 2 : 0.5,
+                type: "spring",
+                stiffness: 200,
+                damping: 15,
+              },
+              width: {
+                duration: 0.7,
+                type: "spring",
+                stiffness: 350,
+                damping: 40,
+                delay: hoveredProjectId === project.id ? 1 : 0,
+              },
+              height: {
+                duration: 0.7,
+                type: "spring",
+                stiffness: 350,
+                damping: 40,
+                delay: hoveredProjectId === project.id ? 1 : 0,
+              },
+            }}
+            className="absolute ml-5 flex flex-col bg-white/20 backdrop-blur-lg rounded-lg overflow-hidden shadow-md cursor-pointer"
           >
-            <div className="flex flex-row items-center space-x-2 p-4 transition-all ease-in-out duration-500">
-              {/* App Icon and Basic Info */}
-              <div
-                className={`absolute  z-10 rounded-md transition-all ease-in-out duration-500
-                  ${
+            <div className="flex flex-row items-center space-x-2 p-4">
+              {/* App Icon and Background */}
+              <motion.div
+                className="absolute z-10 rounded-md"
+                animate={{
+                  width:
                     hoveredProjectId === project.id && index === 0
-                      ? "w-11 h-11 top-2 delay-1000"
-                      : "w-48 h-60 top-5 "
-                  }
-                `}
+                      ? "2.75rem"
+                      : "12rem", // 11 => 2.75rem, 48 => 12rem
+                  height:
+                    hoveredProjectId === project.id && index === 0
+                      ? "2.75rem"
+                      : "15rem", // 11 => 2.75rem, 60 => 15rem
+                  top:
+                    hoveredProjectId === project.id && index === 0
+                      ? "0.5rem"
+                      : "1.25rem",
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 20,
+                  delay: hoveredProjectId ? 1 : 0,
+                }}
               >
-                <img
+                <motion.img
                   src={project.image}
                   alt="App Icon"
-                  className={`object-cover object-center rounded-md w-full h-full transition-all ease-in-out duration-500${
-                    hoveredProjectId === project.id && index === 0 ? " " : ""
-                  }`}
+                  className="object-cover object-center rounded-md w-full h-full"
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0.9,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 250,
+                    damping: 50,
+                    delay: hoveredProjectId === project.id ? 0.7 : 0,
+                  }}
                 />
-                {/* Gradient overlay */}
-                <div
-                  className={`absolute rounded-md inset-0 bg-gradient-to-b from-transparent to-black transition-opacity duration-500 ${
-                    hoveredProjectId === project.id ? "opacity-0" : "opacity-70"
-                  }`}
-                ></div>
-              </div>
+                {/* Gradient Overlay */}
+                <motion.div
+                  className="absolute rounded-md inset-0 bg-gradient-to-b from-transparent to-black"
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 0 : 0.7,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 17,
+                  }}
+                ></motion.div>
+              </motion.div>
 
-              <p
-                className={`text-white text-lg font-semibold transition-all  ease-in-out duration-500 ${
-                  hoveredProjectId === project.id && index === 0
-                    ? "opacity-100 pl-12 delay-1000"
-                    : "opacity-0 pl-0"
-                }`}
+              {/* Project Name */}
+              <motion.p
+                className="text-white text-lg font-semibold"
+                animate={{
+                  opacity:
+                    hoveredProjectId === project.id && index === 0 ? 1 : 0,
+                  paddingLeft:
+                    hoveredProjectId === project.id && index === 0
+                      ? "3rem"
+                      : "0rem",
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 17,
+                  delay: hoveredProjectId === project.id ? 1 : 0,
+                }}
               >
                 {project.name}
-              </p>
+              </motion.p>
             </div>
 
-            <div
-              className={`video transition-all duration-700
-          ${
-            hoveredProjectId === project.id && index === 0
-              ? "opacity-100 delay-1000"
-              : "opacity-0"
-          }
-          `}
+            {/* Review Video */}
+            <motion.div
+              className="video"
+              animate={{
+                opacity: hoveredProjectId === project.id && index === 0 ? 1 : 0,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 50,
+                delay: hoveredProjectId === project.id ? 1 : 0,
+              }}
             >
               <iframe
                 className="object-cover w-full h-full"
@@ -138,39 +201,47 @@ const ProjectsCarousel = () => {
                 height="720"
                 src="https://www.youtube.com/embed/ekr2nIex040"
                 title="review"
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                allowFullScreen
               ></iframe>
-            </div>
-            <div
-              className={`w-full transition-all ease-in-out duration-1000 
-          ${
-            hoveredProjectId === project.id && index === 0
-              ? "opacity-100 delay-1000"
-              : "opacity-0 "
-          }`}
+            </motion.div>
+
+            {/* Additional Content */}
+            <motion.div
+              className="w-full"
+              animate={{
+                opacity: hoveredProjectId === project.id && index === 0 ? 1 : 0,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 15,
+                delay: hoveredProjectId === project.id ? 1 : 0,
+              }}
             >
-              <p className="text-white mt-2 text-xs text-center px-4">
+              <p className="text-white mt-2 text-xs px-4">
                 THE destination for mobile videos. On TikTok, short-form videos
                 are exciting, spontaneous, and genuine.
               </p>
-            </div>
-            {/* Expanded Content */}
+            </motion.div>
 
-            <div
-              className={`absolute flex flex-col space-y-2 bottom-0 w-full p-4 text-white text-xs transition-all ease-in-out duration-500 
-          ${
-            hoveredProjectId === project.id && index === 0
-              ? "opacity-100 delay-1000"
-              : "opacity-0 "
-          }
-          `}
+            {/* Expanded Content */}
+            <motion.div
+              className="absolute flex flex-col space-y-2 bottom-0 w-full p-4 text-white text-xs"
+              animate={{
+                opacity: hoveredProjectId === project.id && index === 0 ? 1 : 0,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 15,
+                delay: hoveredProjectId === project.id ? 1 : 0,
+              }}
             >
               <a
                 href="/#"
-                className="bg-red-500 text-white px-4 py-1 rounded-full mt-2 text-center hover:bg-red-400 duration-200 ease-out"
+                className="bg-black text-white font-bold px-4 py-1 rounded-lg mt-2 text-center hover:bg-white hover:text-black duration-200 ease-out"
               >
                 View
               </a>
@@ -180,25 +251,25 @@ const ProjectsCarousel = () => {
                   <FontAwesomeIcon icon={icon} key={idx} size="xl" />
                 ))}
               </div>
-            </div>
-          </divl>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
-      {/* Next and Previous Buttons */}
-      <div className=" flex space-x-4">
-        <button
-          onClick={handlePrevious}
-          className="bg-white/30 backdrop-blur-sm p-3 rounded-full shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
-        >
-          <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-        </button>
-        <button
-          onClick={handleNext}
-          className="bg-white/30 backdrop-blur-sm p-3 rounded-full shadow  hover:bg-white/50 hover:scale-110 transition-all ease-in-out duration-500"
-        >
-          <FontAwesomeIcon icon={faArrowRight} size="lg" />
-        </button>
-      </div>
+      {/* Carousel Controls */}
+        <div className="flex space-x-4">
+          <button
+            onClick={handlePrevious}
+            className="bg-white/30 backdrop-blur-sm p-3 rounded-lg shadow hover:bg-white/50 hover:scale-110 active:scale-50 transition-all ease-in-out duration-500"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+          </button>
+          <button
+            onClick={handleNext}
+            className="bg-white/30 backdrop-blur-sm p-3 rounded-lg shadow hover:bg-white/50 hover:scale-110 active:scale-50 transition-all ease-in-out duration-500"
+          >
+            <FontAwesomeIcon icon={faArrowRight} size="lg" />
+          </button>
+        </div>
     </div>
   );
 };
